@@ -1,7 +1,7 @@
 {
-  "name": "socket-chat-example",
+  "name": "CSGO Integration",
   "version": "0.0.1",
-  "description": "my first socket.io app",
+  "description": "CSGO Web Intergration",
   "dependencies": {
     "express": "^4.13.3",
     "jade": "^1.11.0",
