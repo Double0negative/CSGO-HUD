@@ -1,0 +1,23 @@
+doctype html
+html(lang="en")
+    head
+        title pageTitle
+        script(src="https://cdn.socket.io/socket.io-1.3.7.js")
+        script(src="http://code.jquery.com/jquery-2.1.4.min.js")
+        script(src="/main.js")
+        link(href='https://fonts.googleapis.com/css?family=Roboto', rel='stylesheet')
+        link(href='/style.css', rel='stylesheet')
+    body
+        div.wrap
+            div.score-wrap
+                table.score
+                    tr
+                        td CT
+                        td T
+                    tr
+                        td.ct-score 0
+                        td.t-score 0
+            div.container
+                div.timelabel Round Time
+                dev.time 1:55
+        
