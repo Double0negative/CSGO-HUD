@@ -35,7 +35,7 @@ var icons = {
     scar20: "http://vignette4.wikia.nocookie.net/cswikia/images/c/c9/Scar20_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20150617233705",
     m249: "http://vignette2.wikia.nocookie.net/cswikia/images/e/ea/M249_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20151115043500",
     negev: "http://vignette2.wikia.nocookie.net/cswikia/images/b/be/Negev_hud.png/revision/latest/scale-to-width-down/400?cb=20151102025426",
-    
+
     c4: "http://vignette1.wikia.nocookie.net/cswikia/images/f/fc/C4_ticking_source.png/revision/latest/scale-to-width-down/400?cb=20150527204001",
     hegrenade: "http://vignette1.wikia.nocookie.net/cswikia/images/6/60/Ammo_hegrenade_css.png/revision/latest/scale-to-width-down/400?cb=20151119040334",
     molotov: "http://vignette3.wikia.nocookie.net/cswikia/images/f/fc/Molotov_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20151118070335",
@@ -43,7 +43,9 @@ var icons = {
     decoy: "http://vignette1.wikia.nocookie.net/cswikia/images/7/78/Decoy_hud.png/revision/latest/scale-to-width-down/400?cb=20150620150731",
     smokegrenade: "http://vignette3.wikia.nocookie.net/cswikia/images/4/48/Smokegrenade_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20151118071411",
     incgrenade: "http://vignette2.wikia.nocookie.net/cswikia/images/4/45/Incgrenade_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20150622014842",
-    
+
+    knife: "http://vignette2.wikia.nocookie.net/cswikia/images/4/4b/Knife_ct_hud_outline_csgo.png/revision/latest/scale-to-width-down/400",
+    knife_t: "http://vignette3.wikia.nocookie.net/cswikia/images/2/28/Knife_t_hud_outline_csgo.png/revision/latest/scale-to-width-down/400",
     knife_bayonet: "http://vignette2.wikia.nocookie.net/cswikia/images/2/28/Csgo_knife_Bayonet.png/revision/latest/scale-to-width-down/400?cb=20151121094052",
     knife_butterfly: "http://vignette2.wikia.nocookie.net/cswikia/images/d/df/Knife_butterfly_hud_outline_csgo.png/revision/latest/scale-to-width-down/400?cb=20151121094022",
     knife_falchion: "http://vignette4.wikia.nocookie.net/cswikia/images/7/7e/Falchion_Knife_hud_outline_csgo.png/revision/latest/scale-to-width-down/400?cb=20151121093921",
@@ -53,7 +55,7 @@ var icons = {
     knife_karambit: "http://vignette4.wikia.nocookie.net/cswikia/images/5/57/Knife_karambit_hud_outline_csgo.png/revision/latest/scale-to-width-down/400?cb=20151121093552",
     knife_m9_bayonet: "http://vignette4.wikia.nocookie.net/cswikia/images/d/d3/Csgo_knife_M9_Bayonet.png/revision/latest/scale-to-width-down/400?cb=20151120233905",
     knife_shadow_dagger: "http://vignette4.wikia.nocookie.net/cswikia/images/f/f1/Knife_push_hud_outline_csgo.png/revision/latest/scale-to-width-down/400?cb=20151120233801"
-    
+
 }
 
 
@@ -67,14 +69,14 @@ io.on("update", function(status) {
 
     $(".t-score").html(json.map.team_t.score);
     $(".ct-score").html(json.map.team_ct.score);
-    
+
     $(".name").html(json.player.name);
 
     roundtime = json.extra.round.timestart;
     bombtime = json.extra.round.bomb.timestart;
 
     updateWeapons();
-    
+
     if(!tickinterval) {
         tickinterval = setInterval(tick, 300);
     }
@@ -85,7 +87,7 @@ io.on("update", function(status) {
 function updateWeapons() {
     var html = "";
     var g = 1;
-    
+
     $("td.pic").html("");
     $("td.ammo").html("");
 
@@ -96,11 +98,11 @@ function updateWeapons() {
             console.log(weapon);
             var type = weapon.type.toLowerCase();
             var clazz = ".rifle";
-            if(type === "pistol") 
+            if(type === "pistol")
                 clazz = ".pistol";
             else if(type === "c4")
                 clazz = ".c4";
-            else if(type === "knife") 
+            else if(type === "knife")
                 clazz = ".knife";
             else if(type === "grenade") {
                 clazz = ".g" + g;
@@ -108,7 +110,7 @@ function updateWeapons() {
             }
             else
                 clazz = ".rifle";
-                
+
             $(clazz + " td.pic").html("<img src='" + icons[name] + "'>");
             $(clazz + " td.ammo").html(weapon.ammo_clip+ "/" + weapon.ammo_reserve);
             $(clazz + " td.reload").html(weapon.ammo_clip < 7 ? "Reload" : "");
@@ -123,7 +125,7 @@ var flashing = false;
 function tick() {
     var btime = json.extra.round.bomb.maxTime - parseInt(new Date().getTime() / 1000 - bombtime);
     var rtime = json.extra.round.maxTime - parseInt(new Date().getTime() / 1000 - roundtime);
-    
+
     if (json.extra.round.bomb.planted) {
         $(".time").html(btime);
         $(".time").css("font-size", "15em");
