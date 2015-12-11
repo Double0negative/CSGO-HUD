@@ -24,7 +24,7 @@
     });
 
     express.listen(2626, function() {
-        console.log('listening on *:3030');
+        console.log('Open http://localhost:2626 to connect');
     });
 
     port = 3000;
@@ -109,4 +109,4 @@
     }
 
     server.listen(port, host);
-    console.log('Listening at http://' + host + ':' + port);
+    console.log('Listening for csgo data at http://' + host + ':' + port);
