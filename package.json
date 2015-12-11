@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "csgo-integration",
-=======
   "name": "csgo-hud",
->>>>>>> refs/remotes/Double0negative/master
   "version": "0.0.1",
   "description": "CSGO Web Hud",
   "dependencies": {
