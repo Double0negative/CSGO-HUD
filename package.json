@@ -1,5 +1,5 @@
 {
-  "name": "CSGO Integration",
+  "name": "csgo-integration",
   "version": "0.0.1",
   "description": "CSGO Web Intergration",
   "dependencies": {
