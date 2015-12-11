@@ -1,9 +1,17 @@
     http = require('http');
     fs = require('fs');
 
+    var version = "1.0.4";
+    var csgoport = 3000;
+    var webport = 2626;
+
     var app = require('express')();
     var express = require('http').Server(app);
     var io = require('socket.io')(express);
+
+    console.log()
+    console.log("\tStarting CSGO Data Integration HUD "+version+" by Double0negative");
+    console.log("\thttps://github.com/Double0negative/CSGO-HUD");
 
     app.set('view engine', 'jade');
 
@@ -20,20 +28,17 @@
     });
 
     io.on('connection', function(socket) {
-        console.log('a user connected');
+        
     });
 
-    express.listen(2626, function() {
-        console.log('Open http://localhost:2626 to connect');
+    express.listen(webport, function() {
+        console.log('\n\tOpen http://localhost:'+webport+' in a browser to connect to HUD');
+        console.log('\n');
     });
-
-    port = 3000;
-    host = '127.0.0.1';
 
     server = http.createServer(function(req, res) {
 
         if (req.method == 'POST') {
-            console.log("Handling POST request...");
             res.writeHead(200, {
                 'Content-Type': 'text/html'
             });
@@ -92,7 +97,6 @@
             round.time = maxTime - (new Date().getTime() / 1000 - round.timestart);
             round.maxTime = maxTime;
 
-            console.log(round.bomb.planted + " " + json.round.bomb + "  " + round.bomb.time);
             if (!round.bomb.planted && json.round.bomb === 'planted') {
                 round.bomb.planted = true;
                 round.bomb.timestart = json.provider.timestamp;
@@ -111,5 +115,4 @@
         io.emit("update", JSON.stringify(json));
     }
 
-    server.listen(port);
-    console.log('Listening for csgo data at http://' + host + ':' + port);
+    server.listen(csgoport);
