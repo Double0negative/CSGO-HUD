@@ -33,7 +33,7 @@
     server = http.createServer(function(req, res) {
 
         if (req.method == 'POST') {
-            console.log("Handling POST request...");
+            console.log("Connecting to CSGO...");
             res.writeHead(200, {
                 'Content-Type': 'text/html'
             });
