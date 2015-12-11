@@ -12,11 +12,11 @@
     });
 
     app.get('/main.js', function(req, res) {
-        res.sendfile('public/js/main.js');
+        res.sendFile(__dirname +'/public/js/main.js');
     });
 
     app.get('/style.css', function(req, res) {
-        res.sendfile('public/css/style.css');
+        res.sendFile(__dirname +'/public/css/style.css');
     });
 
     io.on('connection', function(socket) {
@@ -108,5 +108,5 @@
         io.emit("update", JSON.stringify(json));
     }
 
-    server.listen(port, host);
+    server.listen(port);
     console.log('Listening for csgo data at http://' + host + ':' + port);
