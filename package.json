@@ -1,7 +1,11 @@
 {
+<<<<<<< HEAD
   "name": "csgo-integration",
+=======
+  "name": "csgo-hud",
+>>>>>>> refs/remotes/Double0negative/master
   "version": "0.0.1",
-  "description": "CSGO Web Intergration",
+  "description": "CSGO Web Hud",
   "dependencies": {
     "express": "^4.13.3",
     "jade": "^1.11.0",
