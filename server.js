@@ -12,11 +12,11 @@
     });
 
     app.get('/main.js', function(req, res) {
-        res.sendfile('public/main.js');
+        res.sendfile('public/js/main.js');
     });
 
     app.get('/style.css', function(req, res) {
-        res.sendfile('public/style.css');
+        res.sendfile('public/css/style.css');
     });
 
     io.on('connection', function(socket) {
