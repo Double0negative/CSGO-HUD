@@ -56,7 +56,7 @@ var icons = {
 }
 
 
-var interval;
+var tickinterval;
 
 var roundtime = 0;
 var bombtime = 0;
@@ -66,21 +66,20 @@ io.on("update", function(status) {
 
     $(".t-score").html(json.map.team_t.score);
     $(".ct-score").html(json.map.team_ct.score);
-
-    if (interval) {
-        clearInterval(interval);
-    }
     
     $(".name").html(json.player.name);
 
-    roundtime = parseInt(json.extra.round.time);
-    bombtime = parseInt(json.extra.round.bomb.time);
+    roundtime = json.extra.round.timestart;
+    bombtime = json.extra.round.bomb.timestart;
 
-    interval = setInterval(timer, 500);
-    
     updateWeapons();
+    
+    if(!tickinterval) {
+        tickinterval = setInterval(tick, 300);
+    }
 
 });
+
 
 function updateWeapons() {
     var html = "";
@@ -120,20 +119,20 @@ function updateWeapons() {
 
 var flashing = false;
 
-function timer() {
-    var intbomb = parseInt(bombtime);
-    var inttime = parseInt(roundtime);
-
+function tick() {
+    var btime = json.extra.round.bomb.maxTime - parseInt(new Date().getTime() / 1000 - bombtime);
+    var rtime = json.extra.round.maxTime - parseInt(new Date().getTime() / 1000 - roundtime);
+    
     if (json.extra.round.bomb.planted) {
-        $(".time").html(intbomb);
+        $(".time").html(btime);
         $(".time").css("font-size", "15em");
         $(".timelabel").html("Bomb Planted");
 
-        if (bombtime < 0) {
+        if (btime < 0) {
             flashing = false;
-        } else if (bombtime <= 5) {
+        } else if (btime <= 5) {
             flash();
-        } else if (bombtime <= 10) {
+        } else if (btime <= 10) {
             $(".color").css('background-color', "red");
         } else {
             $(".color").css('background-color', 'orange');
@@ -142,11 +141,11 @@ function timer() {
         var min = 0;
         var sec = 0;
 
-        if (roundtime > 59) {
+        if (rtime > 59) {
             min = 1;
-            sec = inttime - 59;
+            sec = rtime - 59;
         } else {
-            sec = inttime;
+            sec = rtime;
         }
 
         $(".time").css("font-size", "7em");
@@ -162,9 +161,6 @@ function timer() {
         $(".time").html(min > 0 ? min + ":" + sec : sec);
         $(".color").css('background-color', 'lightblue');
     }
-
-    bombtime -= 0.5;
-    roundtime -= 0.5;
 }
 
 function flash() {

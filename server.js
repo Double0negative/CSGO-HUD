@@ -65,10 +65,12 @@
         phase: "",
         timestart: 0,
         time: 0,
+        maxTime: 0,
         bomb: {
             planted: false,
             timestart: 0,
-            time: 0
+            time: 0,
+            maxTime: 40
         }
     };
 
@@ -88,6 +90,7 @@
                 maxTime = 7;
             }
             round.time = maxTime - (new Date().getTime() / 1000 - round.timestart);
+            round.maxTime = maxTime;
 
             console.log(round.bomb.planted + " " + json.round.bomb + "  " + round.bomb.time);
             if (!round.bomb.planted && json.round.bomb === 'planted') {
