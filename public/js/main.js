@@ -10,7 +10,7 @@ var icons = {
     p250: "http://vignette2.wikia.nocookie.net/cswikia/images/5/57/P250_hud.png/revision/latest/scale-to-width-down/400?cb=20150930045325",
     hkp2000: "http://vignette1.wikia.nocookie.net/cswikia/images/6/67/Hkp2000_hud.png/revision/latest/scale-to-width-down/400?cb=20150930051148",
     tec9: "http://vignette3.wikia.nocookie.net/cswikia/images/5/55/Tec9_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20150531170942",
-    usps: "http://vignette2.wikia.nocookie.net/cswikia/images/7/73/Usps_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20150524215538",
+    usp_silencer: "http://vignette2.wikia.nocookie.net/cswikia/images/7/73/Usps_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20150524215538",
     mag7: "http://vignette2.wikia.nocookie.net/cswikia/images/2/2e/Mag7_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20150611155415",
     nova: "http://vignette4.wikia.nocookie.net/cswikia/images/c/c8/Nova_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20150605211827",
     sawedoff: "http://vignette1.wikia.nocookie.net/cswikia/images/9/94/Sawedoff_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20150607002133",
@@ -25,8 +25,8 @@ var icons = {
     aug: "http://vignette2.wikia.nocookie.net/cswikia/images/6/6f/Aug_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20151107081650",
     famas: "http://vignette2.wikia.nocookie.net/cswikia/images/8/8f/Famas_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20151108053236",
     galilar: "http://vignette1.wikia.nocookie.net/cswikia/images/4/4a/Galilar_hud.png/revision/latest/scale-to-width-down/400?cb=20151104020743",
-    m4a1: "http://vignette3.wikia.nocookie.net/cswikia/images/4/4f/M4a1s_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20150524003032",
-    m4a4: "http://vignette2.wikia.nocookie.net/cswikia/images/d/d9/M4a4_hud.png/revision/latest/scale-to-width-down/400/scale-to-width-down/400?cb=20151109050429",
+    m4a1_silencer: "http://vignette3.wikia.nocookie.net/cswikia/images/4/4f/M4a1s_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20150524003032",
+    m4a1: "http://vignette2.wikia.nocookie.net/cswikia/images/d/d9/M4a4_hud.png/revision/latest/scale-to-width-down/400/scale-to-width-down/400?cb=20151109050429",
     sg556: "http://vignette1.wikia.nocookie.net/cswikia/images/9/9b/Sg556_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20150618212907",
     awp: "http://vignette3.wikia.nocookie.net/cswikia/images/e/eb/Awp_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20151111052858",
     g3sg1: "http://vignette4.wikia.nocookie.net/cswikia/images/4/4a/G3sg1_hud_csgo.png/revision/latest/scale-to-width-down/400?cb=20151114060243",
@@ -50,13 +50,13 @@ var icons = {
     knife_gut: "http://vignette2.wikia.nocookie.net/cswikia/images/f/ff/Knife_gut_hud_outline_csgo.png/revision/latest/scale-to-width-down/400?cb=20151121093734",
     knife_huntsman: "http://vignette2.wikia.nocookie.net/cswikia/images/5/53/Knife_hustman_hud_outline_csgo.png/revision/latest/scale-to-width-down/400?cb=20151121093647",
     knife_karambit: "http://vignette4.wikia.nocookie.net/cswikia/images/5/57/Knife_karambit_hud_outline_csgo.png/revision/latest/scale-to-width-down/400?cb=20151121093552",
-    knife_m9bayonet: "http://vignette4.wikia.nocookie.net/cswikia/images/d/d3/Csgo_knife_M9_Bayonet.png/revision/latest/scale-to-width-down/400?cb=20151120233905",
-    knife_shadowdagger: "http://vignette4.wikia.nocookie.net/cswikia/images/f/f1/Knife_push_hud_outline_csgo.png/revision/latest/scale-to-width-down/400?cb=20151120233801"
+    knife_m9_bayonet: "http://vignette4.wikia.nocookie.net/cswikia/images/d/d3/Csgo_knife_M9_Bayonet.png/revision/latest/scale-to-width-down/400?cb=20151120233905",
+    knife_shadow_dagger: "http://vignette4.wikia.nocookie.net/cswikia/images/f/f1/Knife_push_hud_outline_csgo.png/revision/latest/scale-to-width-down/400?cb=20151120233801"
     
 }
 
 
-var interval;
+var tickinterval;
 
 var roundtime = 0;
 var bombtime = 0;
@@ -66,21 +66,20 @@ io.on("update", function(status) {
 
     $(".t-score").html(json.map.team_t.score);
     $(".ct-score").html(json.map.team_ct.score);
-
-    if (interval) {
-        clearInterval(interval);
-    }
     
     $(".name").html(json.player.name);
 
-    roundtime = parseInt(json.extra.round.time);
-    bombtime = parseInt(json.extra.round.bomb.time);
+    roundtime = json.extra.round.timestart;
+    bombtime = json.extra.round.bomb.timestart;
 
-    interval = setInterval(timer, 500);
-    
     updateWeapons();
+    
+    if(!tickinterval) {
+        tickinterval = setInterval(tick, 300);
+    }
 
 });
+
 
 function updateWeapons() {
     var html = "";
@@ -120,20 +119,20 @@ function updateWeapons() {
 
 var flashing = false;
 
-function timer() {
-    var intbomb = parseInt(bombtime);
-    var inttime = parseInt(roundtime);
-
+function tick() {
+    var btime = json.extra.round.bomb.maxTime - parseInt(new Date().getTime() / 1000 - bombtime);
+    var rtime = json.extra.round.maxTime - parseInt(new Date().getTime() / 1000 - roundtime);
+    
     if (json.extra.round.bomb.planted) {
-        $(".time").html(intbomb);
+        $(".time").html(btime);
         $(".time").css("font-size", "15em");
         $(".timelabel").html("Bomb Planted");
 
-        if (bombtime < 0) {
+        if (btime < 0) {
             flashing = false;
-        } else if (bombtime <= 5) {
+        } else if (btime <= 5) {
             flash();
-        } else if (bombtime <= 10) {
+        } else if (btime <= 10) {
             $(".color").css('background-color', "red");
         } else {
             $(".color").css('background-color', 'orange');
@@ -142,11 +141,11 @@ function timer() {
         var min = 0;
         var sec = 0;
 
-        if (roundtime > 59) {
+        if (rtime > 59) {
             min = 1;
-            sec = inttime - 59;
+            sec = rtime - 59;
         } else {
-            sec = inttime;
+            sec = rtime;
         }
 
         $(".time").css("font-size", "7em");
@@ -162,9 +161,6 @@ function timer() {
         $(".time").html(min > 0 ? min + ":" + sec : sec);
         $(".color").css('background-color', 'lightblue');
     }
-
-    bombtime -= 0.5;
-    roundtime -= 0.5;
 }
 
 function flash() {
