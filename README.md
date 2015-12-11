@@ -2,57 +2,17 @@
 
 https://www.youtube.com/watch?v=FM1-iapbEtc
 
-# How to install (Users)
-Pre-Made packages will be assembled once the project is more complete. For now, if you are developer you can follow the instructions below to install/modifiy on *nix systems. Setup should be similar on windows systems.
+# Install 
 
-# How to Install & Edit (Developers)
-
-Requirements: 
-* NodeJS
-* NPM
-
-First, Clone the repo
-```sh
-git clone https://github.com/Double0negative/CSGO-HUD.git
-cd CSGO-HUD
-```
-
-Then install all dependencies 
-```
-npm install
-```
-
-Create a file named `gamestate_integration_hud.cfg` in your csgo cfg folder (`steamapps/common/Counter-Strike Global Offensive/csgo/cgf/`)
-
-Paste the following into the file
-
-```
-"Console Sample v.1"
-{
- "uri" "http://127.0.0.1:3000"
- "timeout" "5.0"
- "buffer"  "0.1"
- "throttle" "0.1"
- "heartbeat" "60.0"
- "data"
- {
-   "provider"            "1"
-   "map"                 "1"
-   "round"               "1"
-   "player_id"           "1"
-   "player_state"        "1"
-   "player_weapons"      "1"
-   "player_match_stats"  "1"
-   "allplayers_match_stats"  "1"
- }
-}
-```
+* If you have GIT, you can use `git clone https://github.com/Double0negative/CSGO-HUD.git` to download the project. Otherwise, Click the Download Zip button above
+* Install Node.JS (NPM is included)
+* Create a file named `gamestate_integration_hud.cfg` in your csgo cfg folder (`steamapps/common/Counter-Strike Global Offensive/csgo/cfg/`) copy-paste from https://gist.github.com/Double0negative/dd24fae86c48d277de0a
+* open CMD, type: cd \where\you\extracted\the\zip\CSGO-HUD-master
+* in CMD: `npm install`
+* in CMD: `node server.js`
+* You should then be able to connect in a web browser by going to `http://localhost:2626`. Start up your game and connect to a match and data should begin streaming
+* Linux and Mac setup is basically identical, just switch out CMD for Terminal
 
 
-then run your server with the following command
 
-```
-node server.js
-```
 
-You should then be able to connect in a web browser by going to `http://localhost:2626`. Start up your game and connect to a match and data should begin streaming
