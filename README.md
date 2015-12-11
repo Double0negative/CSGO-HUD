@@ -3,7 +3,7 @@
 https://www.youtube.com/watch?v=FM1-iapbEtc
 
 # How to install (Users)
-Pre-Made packages will be assembled once the project is more complete. For now, if you are developer you can follow the instructions below to install/modifiy on *nix systems
+Pre-Made packages will be assembled once the project is more complete. For now, if you are developer you can follow the instructions below to install/modifiy on *nix systems. Setup should be similar on windows systems.
 
 # How to Install & Edit (Developers)
 
