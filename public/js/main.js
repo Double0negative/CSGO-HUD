@@ -67,21 +67,14 @@ io.on("update", function(status) {
     $(".t-score").html(json.map.team_t.score);
     $(".ct-score").html(json.map.team_ct.score);
 
-<<<<<<< HEAD
     if (interval) {
         clearInterval(interval);
     }
     console.log(json.player.name + 'being displayed');
     $(".name").html(json.player.name);
     
-    roundtime = parseInt(json.extra.round.time);
-    bombtime = parseInt(json.extra.round.bomb.time);
-=======
-    $(".name").html(json.player.name);
-
     roundtime = json.extra.round.timestart;
     bombtime = json.extra.round.bomb.timestart;
->>>>>>> refs/remotes/Double0negative/master
 
     updateWeapons();
 
@@ -95,10 +88,7 @@ io.on("update", function(status) {
 function updateWeapons() {
     var html = "";
     var g = 1;
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/remotes/Double0negative/master
     $("td.pic").html("");
     $("td.ammo").html("");
     for (var key in json.player.weapons) {
@@ -108,22 +98,19 @@ function updateWeapons() {
             console.log(weapon);
             var type = weapon.type.toLowerCase();
             var clazz = ".rifle";
-            if(type === "pistol")
+            
+            if(type === "pistol"){
                 clazz = ".pistol";
-            else if(type === "c4")
+            }else if(type === "c4"){
                 clazz = ".c4";
-            else if(type === "knife")
+            }else if(type === "knife"){
                 clazz = ".knife";
-            else if(type === "grenade") {
+            }else if(type === "grenade") {
                 clazz = ".g" + g;
                 g++;
-            }
-            else
+            }else{
                 clazz = ".rifle";
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/Double0negative/master
+            }
             $(clazz + " td.pic").html("<img src='" + icons[name] + "'>");
             $(clazz + " td.ammo").html(weapon.ammo_clip+ "/" + weapon.ammo_reserve);
             $(clazz + " td.reload").html(weapon.ammo_clip < 7 ? "Reload" : "");
@@ -131,7 +118,6 @@ function updateWeapons() {
         }
     }
 }
-
 
 var flashing = false;
 
@@ -144,7 +130,6 @@ function tick() {
         $(".time").css("font-size", "15em");
         $(".timelabel").html("Bomb Planted");
 
-<<<<<<< HEAD
         if (bombtime <= 0) {
             flashing = false;
             $(".time").html("BOOM!");
@@ -152,18 +137,10 @@ function tick() {
             flash();
         } else if (bombtime <= 10) {
             $("body").css('background-color', "red");   
-=======
-        if (btime < 0) {
-            flashing = false;
-        } else if (btime <= 5) {
-            flash();
-        } else if (btime <= 10) {
-            $(".color").css('background-color', "red");
->>>>>>> refs/remotes/Double0negative/master
         } else {
             $("body").css('background-color', 'Green');
         }
-    } else {
+    }else{
         var min = 0;
         var sec = 0;
 
@@ -188,7 +165,6 @@ function tick() {
         $("body").css('background-color', 'white');
     }
 }
-
 function flash() {
     $("body").css('background-color', function() {
         this.switch = !this.switch;

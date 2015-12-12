@@ -9,7 +9,7 @@ html, body{
 }
 .score {
     font-size: 2.5em;
-    /*position: relative;*/
+    position: relative;
     margin: auto;
     text-align: center;
 }
