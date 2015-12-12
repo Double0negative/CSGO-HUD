@@ -107,4 +107,4 @@
         io.emit("update", JSON.stringify(json));
     }
     server.listen(csgoport);
-    console.log('Listening for csgo data at http://' + host + ':' + port);
+    console.log('\tListening for csgo data at http://' + host + ':' + webport);
