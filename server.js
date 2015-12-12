@@ -4,25 +4,27 @@
     var app = require('express')();
     var express = require('http').Server(app);
     var io = require('socket.io')(express);
+    var currentUsers = 0;
 
     app.set('view engine', 'jade');
-
     app.get('/', function(req, res) {
         res.render('index');
     });
-
     app.get('/main.js', function(req, res) {
         res.sendfile('public/js/main.js');
     });
-
     app.get('/style.css', function(req, res) {
         res.sendfile('public/css/style.css');
     });
-
     io.on('connection', function(socket) {
-        console.log('a user connected');
+        currentUsers++;
+        console.log('user connected, ' + currentUsers + ' connected');
+        
+        socket.on('disconnect', function() {
+            currentUsers--;
+            console.log('user left, ' + currentUsers + ' connected');
+        });
     });
-
     express.listen(2626, function() {
         console.log('Open http://localhost:2626 to connect');
     });
@@ -31,13 +33,11 @@
     host = '127.0.0.1';
 
     server = http.createServer(function(req, res) {
-
         if (req.method == 'POST') {
             console.log("Connecting to CSGO...");
             res.writeHead(200, {
                 'Content-Type': 'text/html'
             });
-
             var body = '';
             req.on('data', function(data) {
                 body += data;
@@ -47,7 +47,6 @@
                 update(JSON.parse(body));
                 res.end('');
             });
-
         } else {
             res.writeHead(200, {
                 'Content-Type': 'text/html'
@@ -55,12 +54,9 @@
             var html = 'yes';
             res.end(html);
         }
-
     });
-
     var map;
     var player;
-
     var round = {
         phase: "",
         timestart: 0,
@@ -71,14 +67,12 @@
             time: 0
         }
     };
-
     function update(json) {
         if (json.round) {
             if (!(round.phase === json.round.phase)) {
                 round.timestart = json.provider.timestamp;
                 round.phase = json.round.phase;
             }
-
             var maxTime = 0;
             if (json.round.phase === 'live') {
                 maxTime = 115;
@@ -88,7 +82,6 @@
                 maxTime = 7;
             }
             round.time = maxTime - (new Date().getTime() / 1000 - round.timestart);
-
             console.log(round.bomb.planted + " " + json.round.bomb + "  " + round.bomb.time);
             if (!round.bomb.planted && json.round.bomb === 'planted') {
                 round.bomb.planted = true;
@@ -96,17 +89,13 @@
             } else if (round.bomb.planted && json.round.bomb !== 'planted') {
                 round.bomb.planted = false;
             }
-
             if (round.bomb.planted) {
                 round.bomb.time = 40 - (new Date().getTime() / 1000 - round.bomb.timestart);
             }
-
             json.extra = {};
             json.extra.round = round;
         }
-
         io.emit("update", JSON.stringify(json));
     }
-
     server.listen(port, host);
     console.log('Listening for csgo data at http://' + host + ':' + port);
