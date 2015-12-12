@@ -1,6 +1,6 @@
 {
   "name": "csgo-hud",
-  "version": "5",
+  "version": "0.0.1",
   "description": "CSGO Web Hud",
   "dependencies": {
     "express": "^4.13.3",
