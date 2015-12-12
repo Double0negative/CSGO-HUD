@@ -72,7 +72,7 @@ io.on("update", function(status) {
     if (interval) {
         clearInterval(interval);
     }
-    console.log(json.player.name);
+    console.log(json.player.name + 'being displayed');
     $(".name").html(json.player.name);
     
     roundtime = parseInt(json.extra.round.time);
