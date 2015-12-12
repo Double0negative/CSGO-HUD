@@ -56,9 +56,6 @@ var icons = {
     knife_m9_bayonet: "http://vignette4.wikia.nocookie.net/cswikia/images/d/d3/Csgo_knife_M9_Bayonet.png/revision/latest/scale-to-width-down/400",
     knife_shadow_dagger: "http://vignette4.wikia.nocookie.net/cswikia/images/f/f1/Knife_push_hud_outline_csgo.png/revision/latest/scale-to-width-down/400"
 
-}
-
-
 var tickinterval;
 
 var roundtime = 0;
@@ -70,8 +67,12 @@ io.on("update", function(status) {
     $(".t-score").html(json.map.team_t.score);
     $(".ct-score").html(json.map.team_ct.score);
 
+    if (interval) {
+        clearInterval(interval);
+    }
+    console.log(json.player.name + 'being displayed');
     $(".name").html(json.player.name);
-
+    
     roundtime = json.extra.round.timestart;
     bombtime = json.extra.round.bomb.timestart;
 
@@ -90,7 +91,6 @@ function updateWeapons() {
 
     $("td.pic").html("");
     $("td.ammo").html("");
-
     for (var key in json.player.weapons) {
         if (json.player.weapons.hasOwnProperty(key)) {
             var weapon = json.player.weapons[key];
@@ -98,19 +98,19 @@ function updateWeapons() {
             console.log(weapon);
             var type = weapon.type.toLowerCase();
             var clazz = ".rifle";
-            if(type === "pistol")
+            
+            if(type === "pistol"){
                 clazz = ".pistol";
-            else if(type === "c4")
+            }else if(type === "c4"){
                 clazz = ".c4";
-            else if(type === "knife")
+            }else if(type === "knife"){
                 clazz = ".knife";
-            else if(type === "grenade") {
+            }else if(type === "grenade") {
                 clazz = ".g" + g;
                 g++;
-            }
-            else
+            }else{
                 clazz = ".rifle";
-
+            }
             $(clazz + " td.pic").html("<img src='" + icons[name] + "'>");
             $(clazz + " td.ammo").html(weapon.ammo_clip+ "/" + weapon.ammo_reserve);
             $(clazz + " td.reload").html(weapon.ammo_clip < 7 ? "Reload" : "");
@@ -118,7 +118,6 @@ function updateWeapons() {
         }
     }
 }
-
 
 var flashing = false;
 
@@ -131,16 +130,17 @@ function tick() {
         $(".time").css("font-size", "15em");
         $(".timelabel").html("Bomb Planted");
 
-        if (btime < 0) {
+        if (btime <= 0) {
             flashing = false;
+            $(".time").html("BOOM!");
         } else if (btime <= 5) {
             flash();
         } else if (btime <= 10) {
-            $(".color").css('background-color', "red");
+            $("body").css('background-color', "red");   
         } else {
-            $(".color").css('background-color', 'orange');
+            $("body").css('background-color', 'Green');
         }
-    } else {
+    }else{
         var min = 0;
         var sec = 0;
 
@@ -162,12 +162,11 @@ function tick() {
         }
 
         $(".time").html(min > 0 ? min + ":" + sec : sec);
-        $(".color").css('background-color', 'lightblue');
+        $("body").css('background-color', 'white');
     }
 }
-
 function flash() {
-    $(".color").css('background-color', function() {
+    $("body").css('background-color', function() {
         this.switch = !this.switch;
         return this.switch ? "red" : "orange";
     });
