@@ -25,7 +25,6 @@
         res.sendFile(__dirname +'/public/css/style.css');
     });
     io.on('connection', function(socket) {
-<<<<<<< HEAD
         currentUsers++;
         console.log('user connected, ' + currentUsers + ' connected');
         
@@ -34,24 +33,13 @@
             console.log('user left, ' + currentUsers + ' connected');
         });
     });
-    express.listen(2626, function() {
-        console.log('Open http://localhost:2626 to connect');
-=======
-        
-    });
-
     express.listen(webport, function() {
         console.log('\n\tOpen http://localhost:'+webport+' in a browser to connect to HUD');
         console.log('\n');
->>>>>>> refs/remotes/Double0negative/master
     });
-
     server = http.createServer(function(req, res) {
         if (req.method == 'POST') {
-<<<<<<< HEAD
             console.log("Connecting to CSGO...");
-=======
->>>>>>> refs/remotes/Double0negative/master
             res.writeHead(200, {
                 'Content-Type': 'text/html'
             });
@@ -101,12 +89,7 @@
                 maxTime = 7;
             }
             round.time = maxTime - (new Date().getTime() / 1000 - round.timestart);
-<<<<<<< HEAD
             console.log(round.bomb.planted + " " + json.round.bomb + "  " + round.bomb.time);
-=======
-            round.maxTime = maxTime;
-
->>>>>>> refs/remotes/Double0negative/master
             if (!round.bomb.planted && json.round.bomb === 'planted') {
                 round.bomb.planted = true;
                 round.bomb.timestart = json.provider.timestamp;
@@ -121,10 +104,5 @@
         }
         io.emit("update", JSON.stringify(json));
     }
-<<<<<<< HEAD
-    server.listen(port, host);
-    console.log('Listening for csgo data at http://' + host + ':' + port);
-=======
-
     server.listen(csgoport);
->>>>>>> refs/remotes/Double0negative/master
+    console.log('Listening for csgo data at http://' + host + ':' + port);
