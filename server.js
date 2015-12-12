@@ -2,6 +2,7 @@
     fs = require('fs');
 
     var version = "1.0.4";
+    var host = "localhost";
     var csgoport = 3000;
     var webport = 2626;
 
