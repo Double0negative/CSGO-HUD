@@ -89,6 +89,7 @@
                 maxTime = 7;
             }
             round.time = maxTime - (new Date().getTime() / 1000 - round.timestart);
+            round.maxTime = maxTime;
             console.log(round.bomb.planted + " " + json.round.bomb + "  " + round.bomb.time);
             if (!round.bomb.planted && json.round.bomb === 'planted') {
                 round.bomb.planted = true;
