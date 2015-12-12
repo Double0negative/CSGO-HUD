@@ -1,26 +1,28 @@
 doctype html
 html(lang="en")
     head
-        title pageTitle
+        title CSGO HUD
         script(src="https://cdn.socket.io/socket.io-1.3.7.js")
         script(src="http://code.jquery.com/jquery-2.1.4.min.js")
         script(src="/main.js")
         link(href='https://fonts.googleapis.com/css?family=Roboto', rel='stylesheet')
         link(href='/style.css', rel='stylesheet')
+        link(rel="icon", type="image/png", href="/favicon-32x32.png", sizes="32x32")
+        link(rel="icon", type="image/png", href="/favicon-96x96.png", sizes="96x96")
+        link(rel="icon", type="image/png", href="/favicon-16x16.png", sizes="16x16")
     body
-        div.color
         div.wrap
             div.score-wrap
                 table.score
                     tr
-                        td CT
-                        td T
+                        td.ct CT
+                        td.t T
                     tr
                         td.ct-score 0
                         td.t-score 0
             div.container
                 div.timelabel Round Time
-                dev.time 1:55
+                div.time 1:55
             div.container
                 div.name Waiting for data
             div.container
@@ -69,3 +71,9 @@ html(lang="en")
                                     td.pic
                                 tr
                                     tr.ammo
+                 div.equipment 
+                 //yet to be implemented
+                        table
+                            tr
+                                td.pic
+                                

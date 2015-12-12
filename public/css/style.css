@@ -3,75 +3,72 @@ html, body{
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
-
+    background-color: #fff;
 }
-
 .score-wrap {
-    
 }
-
 .score {
-    font-size: 1.5em;
+    font-size: 2.5em;
     position: relative;
     margin: auto;
     text-align: center;
 }
-
-.score td {
+.score td.ct {
     width: 50px;
+    color: #0048b3;
+    padding: 10px;
 }
-
+.score td.ct-score {
+    width: 50px;
+    color: #0048b3;
+    padding: 10px;
+}
+.score td.t {
+    width: 50px;
+    color: #ffad33;
+    padding: 10px;
+}
+.score td.t-score {
+    width: 50px;
+    color: #ffad33;
+    padding: 10px;
+}
 .wrap {
     width: 100%;
     height: 100%;
 }
-
-.color {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: lightblue;
-    transition: background .25s ease-in-out;
-}
-
 .container {
     position: relative;
     margin: auto;
     text-align: center;
 }
-
-
-
 .timelabel {
     font-size: 1.3em;
     padding-top: 30px;
     transition:  .25s ease-in-out;
 }
-
 .time {
     font-size: 7em;
     transition:  .25s ease-in-out;
 }
-
 .pistol td.pic img{
     max-width: 150px;
     max-height: 70px;
 }
-
 .rifle td.pic img {
     width: 400px;
     height: auto;
 }
-
 .name {
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
     font-size: 1.2em;
 }
-
 .knife td.pic img{
     max-width: 150px;
     max-height: 100px;
 }
-
 .weapon ul {
     list-style: none;
     padding: 0;
@@ -79,33 +76,28 @@ html, body{
     text-align: center;
     margin-top: 30px;
 }
-
 .weapon ul li {
     list-stype: none;
     padding: 0;
     margin: 0;
     margin-top: 20px;
 }
-
 .weapon table {
     margin: auto;
     text-align: center;
 }
-
 .grenade ul {
     list-style: none;
     padding: 0;
     margin: 0;
     margin-top: 50px;
 }
-
 .grenade ul li{
     list-style: none;
     padding: 0;
     margin: 10px;
     display: inline-block;
 }
-
 .grenade ul td.pic img{
     width: auto;
     height: 150px;;
