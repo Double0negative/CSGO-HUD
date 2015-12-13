@@ -66,6 +66,7 @@ var bombtime = 0;
 
 io.on("update", function(status) {
     json = JSON.parse(status);
+    if (typeof json.extra == "undefined") return;
 
     $(".t-score").html(json.map.team_t.score);
     $(".ct-score").html(json.map.team_ct.score);
@@ -123,6 +124,8 @@ function updateWeapons() {
 var flashing = false;
 
 function tick() {
+    if (typeof json.extra == "undefined") return;
+
     var btime = json.extra.round.bomb.maxTime - parseInt(new Date().getTime() / 1000 - bombtime);
     var rtime = json.extra.round.maxTime - parseInt(new Date().getTime() / 1000 - roundtime);
 
