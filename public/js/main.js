@@ -90,6 +90,7 @@ function updateWeapons() {
     $("td.ammo").html("");
 
     for (var key in json.player.weapons) {
+        var gren = false;
         if (json.player.weapons.hasOwnProperty(key)) {
             var weapon = json.player.weapons[key];
             var name = weapon.name.replace("weapon_", "");
@@ -104,13 +105,20 @@ function updateWeapons() {
                 clazz = ".knife";
             else if(type === "grenade") {
                 clazz = ".g" + g;
+                gren = true;
                 g++;
             }
             else
                 clazz = ".rifle";
                 
             $(clazz + " td.pic").html("<img src='" + icons[name] + "'>");
-            $(clazz + " td.ammo").html(weapon.ammo_clip+ "/" + weapon.ammo_reserve);
+            if(gren) {
+                if(weapon.ammo_reserve > 1) {
+                        $(clazz + " td.ammo").html("x"+weapon.ammo_reserve);
+                }
+            } else {
+                $(clazz + " td.ammo").html(weapon.ammo_clip+ "/" + weapon.ammo_reserve);
+            }
             $(clazz + " td.reload").html(weapon.ammo_clip < 7 ? "Reload" : "");
 
         }
